@@ -13,16 +13,14 @@
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
-    nixvim.url = "github:nix-community/nixvim";
-    nixvim.inputs.nixpkgs.follows = "nixpkgs";
-    nixvim.inputs.flake-parts.follows = "flake-parts";
-
     vertex.url = "github:juspay/vertex";
 
-    snacks-nvim = {
-      url = "github:folke/snacks.nvim";
-      flake = false;
+    my-nvim = {
+      url = "github:Sarguru02/nixinit.lua";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
     };
+    
   };
 
   outputs = inputs:

@@ -26,16 +26,17 @@
     # https://github.com/juspay/vertex
     flake.inputs.vertex.packages.${system}.default
 
+    #these are done by me
     zsh-powerlevel10k
     tmux
     flake.self.packages.${system}.vopener
     ledger
+    flake.inputs.my-nvim.packages.${system}.default
   ];
 
   programs = {
     # Better `cat`
     bat.enable = true;
-    # Type `<ctrl> + r` to fuzzy search your shell history
     fzf.enable = true;
     jq.enable = true;
     # Install btop https://github.com/aristocratos/btop
