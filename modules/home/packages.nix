@@ -29,6 +29,7 @@
     zsh-powerlevel10k
     tmux
     flake.self.packages.${system}.vopener
+    ledger
   ];
 
   programs = {
