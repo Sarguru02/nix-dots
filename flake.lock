@@ -1,5 +1,30 @@
 {
   "nodes": {
+    "colorscripts": {
+      "inputs": {
+        "flake-parts": [
+          "my-nvim",
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "my-nvim",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1753948564,
+        "narHash": "sha256-Y++Fl7A9kAbKUcUM1qL81bmNTIng13NYv7GHNVL+m8w=",
+        "owner": "Sarguru02",
+        "repo": "pokemon-colorscripts-nix",
+        "rev": "5f78cbe678d1bd1dc8782429640db2ba558ea6ca",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Sarguru02",
+        "repo": "pokemon-colorscripts-nix",
+        "type": "github"
+      }
+    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": "nixpkgs-lib"
@@ -43,11 +68,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1753761827,
-        "narHash": "sha256-mrVNT+aF4yR8P8Fx570W2vz+LzukSlf68Yr2YhUJHjo=",
+        "lastModified": 1753943136,
+        "narHash": "sha256-eiEE5SabVcIlGSTRcRyBjmJMaYAV95SJnjy8YSsVeW4=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "50adf8fcaa97c9d64309f2d507ed8be54ea23110",
+        "rev": "bd82507edd860c453471c46957cbbe3c9fd01b5c",
         "type": "github"
       },
       "original": {
@@ -58,6 +83,7 @@
     },
     "my-nvim": {
       "inputs": {
+        "colorscripts": "colorscripts",
         "flake-parts": [
           "flake-parts"
         ],
@@ -66,11 +92,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1753882314,
-        "narHash": "sha256-mKFX0oEmeIkX7OG6sGPUVlIYMBuxdD8FPCrci0h3LxU=",
+        "lastModified": 1753948940,
+        "narHash": "sha256-3aYWKn0AirBWziVXJsbU7vPSZuM+QiJhqUVgW5j7lKU=",
         "owner": "Sarguru02",
         "repo": "nixinit.lua",
-        "rev": "c6d7f60d7376bf85f420ad3b478a132d407dd90f",
+        "rev": "6f4ff161b4591def58bab796c7e9d22c68d64818",
         "type": "github"
       },
       "original": {
@@ -193,11 +219,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1753654444,
-        "narHash": "sha256-FIAzBcjWZZzbog2WrPwqXq02Jw31MdQEZPJWMClReq4=",
+        "lastModified": 1753914490,
+        "narHash": "sha256-ukgmImZvP9Im+tQ8h7PrGZFsT9q+xjH5s2d7xl24cK4=",
         "owner": "juspay",
         "repo": "vertex",
-        "rev": "b902f1e5f81ada53ff7b66c69856f5949dacc416",
+        "rev": "7c9cff5ca136bb419ae526a5b508e43650fadd4c",
         "type": "github"
       },
       "original": {
