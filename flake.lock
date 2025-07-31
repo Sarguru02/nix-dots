@@ -12,11 +12,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1753948564,
-        "narHash": "sha256-Y++Fl7A9kAbKUcUM1qL81bmNTIng13NYv7GHNVL+m8w=",
+        "lastModified": 1753956934,
+        "narHash": "sha256-JE3GQJzcJg1/il6eYDoHGkIThhWNmCv0NqFCTz80WVI=",
         "owner": "Sarguru02",
         "repo": "pokemon-colorscripts-nix",
-        "rev": "5f78cbe678d1bd1dc8782429640db2ba558ea6ca",
+        "rev": "f4b6cd732c98955db64dfc47c264fe8f2a0c4187",
         "type": "github"
       },
       "original": {
@@ -92,11 +92,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1753948940,
-        "narHash": "sha256-3aYWKn0AirBWziVXJsbU7vPSZuM+QiJhqUVgW5j7lKU=",
+        "lastModified": 1753956970,
+        "narHash": "sha256-XpBdLgk8Y3T+Q1wEBhB1lo0LJh9g1Q3Q/r/yQfHdmIo=",
         "owner": "Sarguru02",
         "repo": "nixinit.lua",
-        "rev": "6f4ff161b4591def58bab796c7e9d22c68d64818",
+        "rev": "e4dbbd18ad01b28fc8e94bfaf3e2147dbf6f3a5b",
         "type": "github"
       },
       "original": {

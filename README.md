@@ -5,7 +5,7 @@ A personal Nix flake configuration using Home Manager to provide a consistent de
 ## Overview
 
 This configuration provides:
-- **Neovim** with NixVim configuration including modern plugins
+- **Neovim** configuration including modern plugins
 - **Shell environment** with Zsh, Oh My Zsh, and Powerlevel10k theme
 - **Development tools** including Git, Lazygit, and various Unix utilities
 - **Nix development** tools and language server
@@ -26,7 +26,7 @@ This configuration provides:
 
 1. Clone this repository:
    ```bash
-   git clone <your-repo-url> ~/.config/home-manager
+   git clone https://github.com/Sarguru02/nix-dots ~/.config/home-manager
    cd ~/.config/home-manager
    ```
 
