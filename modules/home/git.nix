@@ -16,11 +16,17 @@
         ci = "commit";
       };
       extraConfig = {
-        # init.defaultBranch = "master";
-        # pull.rebase = "false";
+        init.defaultBranch = "master";
       };
     };
-    lazygit.enable = true;
+    lazygit = {
+      enable = true;
+      settings = {
+        git.paging = {
+          colorArg = "always";
+          pager = "delta --dark --paging=never";
+        };
+      };
+    };
   };
-
 }
