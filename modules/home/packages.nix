@@ -32,6 +32,7 @@
     flake.self.packages.${system}.vopener
     ledger
     flake.inputs.my-nvim.packages.${system}.default
+    delta
   ];
 
   programs = {
