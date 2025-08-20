@@ -92,11 +92,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1753965598,
-        "narHash": "sha256-WXlJkLqB2upW5JJ5S3kYEM69tlQ3EA5pqzebX9F183A=",
+        "lastModified": 1755693778,
+        "narHash": "sha256-JcmfrVltmqp4KHwjdwbB3AK1C/RLt+FHSFElaUCaWdg=",
         "owner": "Sarguru02",
         "repo": "nixinit.lua",
-        "rev": "dc2ee2776f24fb7174dceddfe98a6243a1ddb691",
+        "rev": "007ce2852f16478ba9ab1cf52d8625a9560cc746",
         "type": "github"
       },
       "original": {
