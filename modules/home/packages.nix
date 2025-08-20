@@ -33,6 +33,7 @@
     ledger
     flake.inputs.my-nvim.packages.${system}.default
     delta
+    vlc-bin-universal
   ];
 
   programs = {
