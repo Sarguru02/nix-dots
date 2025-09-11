@@ -34,6 +34,7 @@
     flake.inputs.my-nvim.packages.${system}.default
     delta
     vlc-bin-universal
+    just
   ];
 
   programs = {

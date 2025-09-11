@@ -30,13 +30,9 @@
         export EDITOR=nvim
       '';
       profileExtra = ''
-        # Custom ~/.zprofile goes here
-      '';
-      loginExtra = ''
-        # Custom ~/.zlogin goes here
-      '';
-      logoutExtra = ''
-        # Custom ~/.zlogout goes here
+        if [ -z "$SSH_AUTH_SOCK" ]; then
+            exec ssh-agent zsh
+        fi
       '';
     };
     # Type `z <pat>` to cd to some directory
