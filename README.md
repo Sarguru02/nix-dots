@@ -110,6 +110,9 @@ This configuration includes Claude Code setup using Google Vertex AI Platform vi
 │   └── home/                    # Home Manager modules
 │       ├── default.nix          # Auto-imports all modules
 │       ├── direnv.nix           # Direnv configuration
+│       ├── zellij/              # Zellij config files
+│       │   ├── default.nix      # Enables zellij
+│       │   └── config.kdl       # main zellij config
 │       ├── gc.nix               # Garbage collection settings
 │       ├── git.nix              # Git and Lazygit setup
 │       ├── me.nix               # User information module
@@ -121,6 +124,7 @@ This configuration includes Claude Code setup using Google Vertex AI Platform vi
 ├── flake.nix                    # Main flake definition
 ├── flake.lock                   # Lock file for reproducible builds
 └── justfile                     # Task runner commands
+
 ```
 
 ## Troubleshooting
@@ -129,3 +133,12 @@ This configuration includes Claude Code setup using Google Vertex AI Platform vi
 - Check that Nix flakes are enabled in your Nix configuration
 - Run `just check` to validate the flake before activation
 - Use `just dev` to enter a development shell for debugging
+
+
+
+# Planning to do 
+
+- [ ] Make some nice Zellij layouts.
+- [ ] Vim-zellij navigator ???.
+- [ ] Stylix for consistent theming.
+  - [ ] install ghostty through nix pkgs home manager.
