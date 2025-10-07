@@ -8,6 +8,11 @@
     rvo = ''ssh -t sargurunathan@tcpu "zsh -i -c \"vo; zsh\""'';
     vo = "vopener";
   };
+
+  home.file.".p10k.zsh" = {
+    text = builtins.readFile ./p10k.zsh;
+    force = true;
+  };
   programs = {
     # on macOS, you probably don't need this
     zsh = {
