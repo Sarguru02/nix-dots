@@ -1,23 +1,72 @@
+# --- Detect multiplexer preference ---
+if [[ -n "${TMUX:-}" ]]; then
+    MULTIPLEXER="tmux"
+elif [[ -n "${ZELLIJ:-}" ]]; then
+    MULTIPLEXER="zellij"
+else
+    # Default preference order if neither is running
+    if command -v zellij >/dev/null 2>&1; then
+        MULTIPLEXER="zellij"
+    else
+        MULTIPLEXER="tmux"
+    fi
+fi
+
+# --- Choose project directory ---
 if [[ $# -eq 1 ]]; then
     selected="$1"
 else
     selected=$(find ~/Sarguru ~/euler ~/Sarguru/neonix -mindepth 1 -maxdepth 1 -type d | fzf)
 fi
 
-if [[ -z "$selected" ]]; then
-    exit 0
-fi
+[[ -z "$selected" ]] && exit 0
 
 selected_name=$(basename "$selected" | tr . _)
 
-if [[ -z "${TMUX:-}" ]]; then
+# --- TMUX logic ---
+tmux_switch() {
     if ! tmux has-session -t "$selected_name" 2>/dev/null; then
         tmux new-session -ds "$selected_name" -c "$selected"
     fi
-    tmux attach-session -t "$selected_name"
-else
-    if ! tmux has-session -t "$selected_name" 2>/dev/null; then
-        tmux new-session -ds "$selected_name" -c "$selected"
+    if [[ -z "${TMUX:-}" ]]; then
+        tmux attach-session -t "$selected_name"
+    else
+        tmux switch-client -t "$selected_name"
     fi
-    tmux switch-client -t "$selected_name"
-fi
+}
+
+# --- ZELLIJ logic ---
+zellij_switch() {
+    if zellij list-sessions | grep -q "$selected_name"; then
+        if [[ -n "${ZELLIJ:-}" ]]; then
+            # already inside Zellij → switch
+            zellij action new-session "$selected_name" >/dev/null 2>&1 || \
+            zellij action switch-to-session "$selected_name"
+        else
+            # outside → attach
+            zellij attach "$selected_name"
+        fi
+    else
+        if [[ -n "${ZELLIJ:-}" ]]; then
+            # inside Zellij → create new session (detached, switch to it)
+            zellij action new-session "$selected_name"
+        else
+            # outside Zellij → open new session in project dir
+            (cd "$selected" && zellij -s "$selected_name")
+        fi
+    fi
+}
+
+# --- Dispatch ---
+case "$MULTIPLEXER" in
+  tmux)
+    tmux_switch
+    ;;
+  zellij)
+    zellij_switch
+    ;;
+  *)
+    echo "No supported multiplexer found."
+    exit 1
+    ;;
+esac
