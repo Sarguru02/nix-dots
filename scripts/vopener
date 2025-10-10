@@ -25,9 +25,12 @@ selected_name=$(basename "$selected" | tr . _)
 
 # --- TMUX logic ---
 tmux_switch() {
-    if ! tmux has-session -t "$selected_name" 2>/dev/null; then
+    if tmux has-session -t "$selected_name" 2>/dev/null; then
+        tmux new-session -ds "$selected_name" -c "$selected"
+    else
         tmux new-session -ds "$selected_name" -c "$selected"
     fi
+
     if [[ -z "${TMUX:-}" ]]; then
         tmux attach-session -t "$selected_name"
     else
@@ -37,23 +40,29 @@ tmux_switch() {
 
 # --- ZELLIJ logic ---
 zellij_switch() {
-    if zellij list-sessions | grep -q "$selected_name"; then
-        if [[ -n "${ZELLIJ:-}" ]]; then
-            # already inside Zellij → switch
-            zellij action new-session "$selected_name" >/dev/null 2>&1 || \
-            zellij action switch-to-session "$selected_name"
+    # Strip color codes before grepping for session name
+    session_line=$(zellij list-sessions 2>/dev/null | sed -r "s/\x1B\[[0-9;]*[mK]//g" | grep "$selected_name" || true)
+
+    if [[ -n "$session_line" ]]; then
+        if echo "$session_line" | grep -q "(EXITED"; then
+            printf "Session '%s' is exited. Resurrect previous session? (y/N): " "$selected_name"
+            read -r -n 1 reply
+            printf "\r\033[K"
+            if [[ "$reply" =~ ^[Yy]$ ]]; then
+                zellij attach "$selected_name"
+            else
+                zellij delete-session "$selected_name"
+                (cd "$selected" && zellij -s "$selected_name")
+            fi
         else
-            # outside → attach
-            zellij attach "$selected_name"
+            if [[ -n "${ZELLIJ:-}" ]]; then
+                zellij action switch-to-session "$selected_name"
+            else
+                zellij attach "$selected_name"
+            fi
         fi
     else
-        if [[ -n "${ZELLIJ:-}" ]]; then
-            # inside Zellij → create new session (detached, switch to it)
-            zellij action new-session "$selected_name"
-        else
-            # outside Zellij → open new session in project dir
-            (cd "$selected" && zellij -s "$selected_name")
-        fi
+        (cd "$selected" && zellij -s "$selected_name")
     fi
 }
 

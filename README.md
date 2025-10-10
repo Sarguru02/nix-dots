@@ -100,7 +100,7 @@ This configuration includes Claude Code setup using Google Vertex AI Platform vi
 ## File Structure
 
 ```
-├── configurations/home/          # Per-user configurations
+├── configurations/home/         # Per-user configurations
 │   └── sargurunathan.p.nix      # Main user configuration
 ├── modules/
 │   ├── flake/                   # Flake-level modules
