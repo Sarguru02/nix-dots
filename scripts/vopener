@@ -1,20 +1,26 @@
-# --- Detect multiplexer preference ---
-if [[ -n "${TMUX:-}" ]]; then
-    MULTIPLEXER="tmux"
-elif [[ -n "${ZELLIJ:-}" ]]; then
-    MULTIPLEXER="zellij"
-else
-    # Default preference order if neither is running
-    if command -v zellij >/dev/null 2>&1; then
-        MULTIPLEXER="zellij"
-    else
-        MULTIPLEXER="tmux"
-    fi
-fi
+# --- Parse flags ---
+MULTIPLEXER="tmux"  # default
+
+for arg in "$@"; do
+    case "$arg" in
+        --tmux)
+            MULTIPLEXER="tmux"
+            shift
+            ;;
+        --zellij)
+            MULTIPLEXER="zellij"
+            shift
+            ;;
+        *)
+            # First non-flag argument is treated as the directory
+            project_arg="$arg"
+            ;;
+    esac
+done
 
 # --- Choose project directory ---
-if [[ $# -eq 1 ]]; then
-    selected="$1"
+if [[ -n "${project_arg:-}" ]]; then
+    selected="$project_arg"
 else
     selected=$(find ~/Sarguru ~/euler ~/Sarguru/neonix -mindepth 1 -maxdepth 1 -type d | fzf)
 fi
@@ -25,22 +31,24 @@ selected_name=$(basename "$selected" | tr . _)
 
 # --- TMUX logic ---
 tmux_switch() {
-    if tmux has-session -t "$selected_name" 2>/dev/null; then
-        tmux new-session -ds "$selected_name" -c "$selected"
-    else
-        tmux new-session -ds "$selected_name" -c "$selected"
-    fi
-
     if [[ -z "${TMUX:-}" ]]; then
+      if tmux has-session -t "$selected_name" 2>/dev/null; then
         tmux attach-session -t "$selected_name"
+      else
+        tmux new-session -s "$selected_name" -c "$selected"
+      fi
     else
+      if tmux has-session -t "$selected_name" 2>/dev/null; then
         tmux switch-client -t "$selected_name"
+      else
+        tmux new-session -ds "$selected_name" -c "$selected"
+        tmux switch-client -t "$selected_name"
+      fi
     fi
 }
 
 # --- ZELLIJ logic ---
 zellij_switch() {
-    # Strip color codes before grepping for session name
     session_line=$(zellij list-sessions 2>/dev/null | sed -r "s/\x1B\[[0-9;]*[mK]//g" | grep "$selected_name" || true)
 
     if [[ -n "$session_line" ]]; then
@@ -62,7 +70,12 @@ zellij_switch() {
             fi
         fi
     else
-        (cd "$selected" && zellij -s "$selected_name")
+        if [[ -n "${ZELLIJ:-}" ]]; then
+            zellij action new-session -n "$selected_name"
+            zellij action switch-to-session "$selected_name"
+        else
+            (cd "$selected" && zellij -s "$selected_name")
+        fi
     fi
 }
 
@@ -75,7 +88,7 @@ case "$MULTIPLEXER" in
     zellij_switch
     ;;
   *)
-    echo "No supported multiplexer found."
+    echo "Invalid multiplexer: $MULTIPLEXER"
     exit 1
     ;;
 esac
