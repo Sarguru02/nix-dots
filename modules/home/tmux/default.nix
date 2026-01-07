@@ -1,4 +1,6 @@
-{ pkgs, ... }:
+{ flake, pkgs, ... }:
+let vopener = flake.self.packages.${pkgs.system}.vopener;
+  in
 {
   # --- Enable tmux itself ---
   programs.tmux = {
@@ -15,6 +17,7 @@
     extraConfig = ''
       set-option -g default-shell "${pkgs.zsh}/bin/zsh"
       set-option -g default-command "${pkgs.zsh}/bin/zsh -l"
+      bind-key -n C-f new-window "${vopener}/bin/vopener"
     '';
 
   };
