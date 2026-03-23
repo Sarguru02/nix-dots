@@ -22,10 +22,10 @@
     lazygit = {
       enable = true;
       settings = {
-        git.paging = {
+        git.pagers = [ {
           colorArg = "always";
           pager = "delta --dark --paging=never";
-        };
+        } ];
       };
     };
   };

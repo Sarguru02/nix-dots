@@ -35,6 +35,8 @@
     delta
     vlc-bin-universal
     just
+
+    signal-desktop
   ];
 
   programs = {
