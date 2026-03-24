@@ -7,6 +7,9 @@
     cl = "clear && ls";
     rvo = ''ssh -t sargurunathan@tcpu "zsh -i -c \"vo; zsh\""'';
     vo = "vopener";
+    ls = "eza";
+    ll = "eza -l";
+    cd = "z";
   };
 
   home.file.".p10k.zsh" = {

@@ -9,13 +9,15 @@
   programs = {
     git = {
       enable = true;
-      userName = config.me.fullname;
-      userEmail = config.me.email;
       ignores = [ "*~" "*.swp" ];
-      aliases = {
-        ci = "commit";
-      };
-      extraConfig = {
+      settings = {
+        user = {
+          email = config.me.email;
+          name = config.me.fullname;
+        };
+        alias = {
+          ci = "commit";
+        };
         init.defaultBranch = "master";
       };
     };
