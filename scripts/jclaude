@@ -1,0 +1,33 @@
+function jclaude() {
+    # Read JUSPAY_API_KEY from last line of ~/xynekey (format: "key: value")
+    JUSPAY_API_KEY=$(tail -1 ~/xynekey | cut -d':' -f2- | xargs)
+    
+    MODEL=$(curl -X GET \
+      'https://grid.ai.juspay.net/models?return_wildcard_routes=false&include_model_access_groups=false&only_model_access_groups=false&include_metadata=false' \
+      -H 'accept: application/json' \
+      -H "Authorization: Bearer $JUSPAY_API_KEY" | jq -r '.data|.[].id' | fzf)
+    # Unset unwanted environment variables for this function scope
+    GEMINI_API_KEY="" \
+    GOOGLE_CLOUD_PROJECT="" \
+    GOOGLE_APPLICATION_CREDENTIALS="" \
+    CLAUDE_CODE_USE_VERTEX="" \
+    CLOUD_ML_REGION="" \
+    GOOGLE_VERTEX_PROJECT="" \
+    ANTHROPIC_VERTEX_PROJECT_ID="" \
+    ANTHROPIC_BASE_URL="https://grid.ai.juspay.net/" \
+    ANTHROPIC_AUTH_TOKEN="$JUSPAY_API_KEY" \
+    ANTHROPIC_MODEL="$MODEL" \
+    ANTHROPIC_SMALL_FAST_MODEL="$MODEL" \
+    CLAUDE_CODE_SUBAGENT_MODEL="$MODEL" \
+    ANTHROPIC_DEFAULT_SONNET_MODEL="$MODEL" \
+    ANTHROPIC_DEFAULT_OPUS_MODEL="$MODEL" \
+    ANTHROPIC_DEFAULT_HAIKU_MODEL="$MODEL" \
+    DISABLE_INTERLEAVED_THINKING=true \
+    API_TIMEOUT_MS=600000 \
+    BASH_MAX_TIMEOUT_MS=300000 \
+    CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS=1 \
+    claude "${@:1}"
+}
+
+# Execute the function with all arguments
+jclaude "$@"

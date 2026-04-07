@@ -18,5 +18,16 @@
       runtimeInputs = with pkgs; [tmux];
       text = builtins.readFile ../../scripts/vopener;
     };
+
+    packages.jclaude = pkgs.writeShellApplication {
+      name = "jclaude";
+      runtimeInputs = with pkgs; [
+        inputs.claude-code-nix.packages.${system}.claude-code
+        fzf
+        curl
+        jq
+      ];
+      text = builtins.readFile ../../scripts/jclaude;
+    };
   };
 }

@@ -1,4 +1,8 @@
 { flake, pkgs, ... }:
+let
+  inherit (pkgs) lib;
+  isDarwin = pkgs.stdenv.isDarwin;
+in
 {
   # Search for packages here: https://search.nixos.org/packages
   home.packages = with pkgs; [
@@ -33,11 +37,14 @@
     ledger
     flake.inputs.my-nvim.packages.${system}.default
     delta
-    vlc-bin-universal
     just
+    flake.self.packages.${system}.jclaude
 
     signal-desktop
-  ];
+  ]
+  # macOS-only packages
+  ++ lib.optional isDarwin vlc-bin-universal
+  ;
 
   programs = {
     # Better `cat`
