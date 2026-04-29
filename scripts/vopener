@@ -1,94 +1,42 @@
-# --- Parse flags ---
-MULTIPLEXER="tmux"  # default
-
-for arg in "$@"; do
-    case "$arg" in
-        --tmux)
-            MULTIPLEXER="tmux"
-            shift
-            ;;
-        --zellij)
-            MULTIPLEXER="zellij"
-            shift
-            ;;
-        *)
-            # First non-flag argument is treated as the directory
-            project_arg="$arg"
-            ;;
-    esac
-done
-
-# --- Choose project directory ---
-if [[ -n "${project_arg:-}" ]]; then
-    selected="$project_arg"
-else
-    selected=$(find ~/Sarguru ~/euler ~/Sarguru/neonix -mindepth 1 -maxdepth 1 -type d | fzf)
+# Parse arguments
+if [[ -n ${1:-} ]]; then
+	project_arg=$1
 fi
 
-[[ -z "$selected" ]] && exit 0
+# Choose project directory
+if [[ -n ${project_arg:-} ]]; then
+	selected=$project_arg
+else
+	selected=$(
+		find ~/Sarguru ~/euler ~/Sarguru/neonix \
+			-mindepth 1 -maxdepth 1 -type d | fzf
+	)
+fi
+
+[[ -z $selected ]] && exit 0
 
 selected_name=$(basename "$selected" | tr . _)
 
-# --- TMUX logic ---
+# Attach to or create tmux session
 tmux_switch() {
-    if [[ -z "${TMUX:-}" ]]; then
-      if tmux has-session -t "$selected_name" 2>/dev/null; then
-        tmux attach-session -t "$selected_name"
-      else
-        tmux new-session -s "$selected_name" -c "$selected"
-      fi
-    else
-      if tmux has-session -t "$selected_name" 2>/dev/null; then
-        tmux switch-client -t "$selected_name"
-      else
-        tmux new-session -ds "$selected_name" -c "$selected"
-        tmux switch-client -t "$selected_name"
-      fi
-    fi
+	local selected=$1
+	local selected_name=$2
+
+	if [[ -z ${TMUX:-} ]]; then
+		if tmux has-session -t "$selected_name" 2>/dev/null; then
+			tmux attach-session -t "$selected_name"
+		else
+			tmux new-session -s "$selected_name" -c "$selected"
+		fi
+	else
+		if tmux has-session -t "$selected_name" 2>/dev/null; then
+			tmux switch-client -t "$selected_name"
+		else
+			tmux new-session -ds "$selected_name" -c "$selected"
+			tmux switch-client -t "$selected_name"
+		fi
+	fi
 }
 
-# --- ZELLIJ logic ---
-zellij_switch() {
-    session_line=$(zellij list-sessions 2>/dev/null | sed -r "s/\x1B\[[0-9;]*[mK]//g" | grep "$selected_name" || true)
-
-    if [[ -n "$session_line" ]]; then
-        if echo "$session_line" | grep -q "(EXITED"; then
-            printf "Session '%s' is exited. Resurrect previous session? (y/N): " "$selected_name"
-            read -r -n 1 reply
-            printf "\r\033[K"
-            if [[ "$reply" =~ ^[Yy]$ ]]; then
-                zellij attach "$selected_name"
-            else
-                zellij delete-session "$selected_name"
-                (cd "$selected" && zellij -s "$selected_name")
-            fi
-        else
-            if [[ -n "${ZELLIJ:-}" ]]; then
-                zellij action switch-to-session "$selected_name"
-            else
-                zellij attach "$selected_name"
-            fi
-        fi
-    else
-        if [[ -n "${ZELLIJ:-}" ]]; then
-            zellij action new-session -n "$selected_name"
-            zellij action switch-to-session "$selected_name"
-        else
-            (cd "$selected" && zellij -s "$selected_name")
-        fi
-    fi
-}
-
-# --- Dispatch ---
-case "$MULTIPLEXER" in
-  tmux)
-    tmux_switch
-    ;;
-  zellij)
-    zellij_switch
-    ;;
-  *)
-    echo "Invalid multiplexer: $MULTIPLEXER"
-    exit 1
-    ;;
-esac
+# Execute
+tmux_switch "$selected" "$selected_name"
