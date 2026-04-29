@@ -26,10 +26,6 @@ in
     # work.
     less
 
-    # Setup Claude Code using Google Vertex AI Platform
-    # https://github.com/juspay/vertex
-    flake.inputs.vertex.packages.${system}.default
-
     #these are done by me
     zsh-powerlevel10k
     tmux

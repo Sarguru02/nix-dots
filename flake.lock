@@ -207,11 +207,11 @@
     },
     "nixos-unified": {
       "locked": {
-        "lastModified": 1759968479,
-        "narHash": "sha256-YbcoDcei1PkY+d+h52Utnyw3Hgr6trnvDF3iqHWhkXM=",
+        "lastModified": 1776963825,
+        "narHash": "sha256-h8ohEfNWB6FBHSnCxdWXnPIhseGIg+3+uYPzDxQdAAc=",
         "owner": "srid",
         "repo": "nixos-unified",
-        "rev": "05fd33594509b21dd9d5a782fc0c5650acc55e61",
+        "rev": "d2818c36b8637f9abde16ecf4e81991e43b8529e",
         "type": "github"
       },
       "original": {
@@ -267,22 +267,6 @@
         "type": "github"
       }
     },
-    "nixpkgs_3": {
-      "locked": {
-        "lastModified": 1753429684,
-        "narHash": "sha256-9h7+4/53cSfQ/uA3pSvCaBepmZaz/dLlLVJnbQ+SJjk=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "7fd36ee82c0275fb545775cc5e4d30542899511d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "claude-code-nix": "claude-code-nix",
@@ -291,8 +275,7 @@
         "my-nvim": "my-nvim",
         "nix-index-database": "nix-index-database",
         "nixos-unified": "nixos-unified",
-        "nixpkgs": "nixpkgs_2",
-        "vertex": "vertex"
+        "nixpkgs": "nixpkgs_2"
       }
     },
     "systems": {
@@ -307,27 +290,6 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
-        "type": "github"
-      }
-    },
-    "vertex": {
-      "inputs": {
-        "flake-parts": [
-          "flake-parts"
-        ],
-        "nixpkgs": "nixpkgs_3"
-      },
-      "locked": {
-        "lastModified": 1754335569,
-        "narHash": "sha256-9vuoJuYYg8+Z4TRZEwhvfnuwzf7/9qL4Zo/tv9Kl9g0=",
-        "owner": "juspay",
-        "repo": "vertex",
-        "rev": "298f7526e6aeac43d61d145aa3bade7774a965aa",
-        "type": "github"
-      },
-      "original": {
-        "owner": "juspay",
-        "repo": "vertex",
         "type": "github"
       }
     }
