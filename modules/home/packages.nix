@@ -36,6 +36,8 @@ in
     just
     flake.self.packages.${system}.jclaude
 
+    flake.inputs.zmx.packages.${system}.default
+
     signal-desktop
   ]
   # macOS-only packages

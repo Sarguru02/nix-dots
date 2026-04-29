@@ -21,6 +21,10 @@
       inputs.flake-parts.follows = "flake-parts";
     };
 
+    zmx = {
+      url = "github:Sarguru02/zmx";
+    };
+
     claude-code-nix = {
       url = "github:sadjow/claude-code-nix";
       inputs.nixpkgs.follows = "nixpkgs";

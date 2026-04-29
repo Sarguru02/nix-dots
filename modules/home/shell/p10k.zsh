@@ -36,6 +36,12 @@
     prompt_char             # prompt symbol
   )
 
+  function prompt_my_zmx_session() {
+    if [[ -n $ZMX_SESSION ]]; then
+      p10k segment -b '%k' -f '%f' -t "[$ZMX_SESSION]"
+    fi
+  }
+
   # The list of segments shown on the right. Fill it with less important segments.
   # Right prompt on the last prompt line (where you are typing your commands) gets
   # automatically hidden when the input line reaches it. Right prompt above the
@@ -108,6 +114,7 @@
     # battery               # internal battery
     # wifi                  # wifi speed
     # example               # example user-defined segment (see prompt_example function below)
+    my_zmx_session
   )
 
   # Defines character set used by powerlevel10k. It's best to let `p10k configure` set it for you.
