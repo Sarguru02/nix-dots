@@ -39,6 +39,7 @@ in
     flake.inputs.zmx.packages.${system}.default
 
     signal-desktop
+    wezterm
   ]
   # macOS-only packages
   ++ lib.optional isDarwin vlc-bin-universal
