@@ -366,15 +366,16 @@
         "zig2nix": "zig2nix"
       },
       "locked": {
-        "lastModified": 1777398920,
-        "narHash": "sha256-ZDGluw5p/S2OrIbnU6+z+KFpk22msSUOerMiOs9mtRc=",
+        "lastModified": 1777963003,
+        "narHash": "sha256-1g8QTevSITMUV5a1EZViKHwdDbRlUnOEt/j4wH4b8oM=",
         "owner": "Sarguru02",
         "repo": "zmx",
-        "rev": "de139c98784ed05942ad5608946743d6f72cc505",
+        "rev": "5d75992823712c5b4c846a4b6971647af11705bc",
         "type": "github"
       },
       "original": {
         "owner": "Sarguru02",
+        "ref": "feat/home-manager-module",
         "repo": "zmx",
         "type": "github"
       }

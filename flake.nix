@@ -22,7 +22,7 @@
     };
 
     zmx = {
-      url = "github:Sarguru02/zmx";
+      url = "github:Sarguru02/zmx/feat/home-manager-module";
     };
 
     claude-code-nix = {

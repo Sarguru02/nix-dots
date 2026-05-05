@@ -1,2 +1,7 @@
 result
 .direnv
+
+
+# APM dependencies
+apm_modules/
+/.worktrees
