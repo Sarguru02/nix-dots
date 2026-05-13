@@ -136,4 +136,9 @@ This configuration includes Claude Code setup using Google Vertex AI Platform vi
 # Planning to do
 
 - [ ] Stylix for consistent theming.
-  - [ ] install ghostty through nix pkgs home manager.
+  - [ ] install ghostty through nix pkgs home manager. -> not supported for macos
+
+- [ ] menu.txt for linux obv.
+- [ ] ~/.config/worktrees/{adjectives, nouns}.txt
+- [ ] worktrees script
+- [ ] zmx home manager module
