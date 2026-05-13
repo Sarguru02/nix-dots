@@ -21,31 +21,6 @@
         "type": "github"
       }
     },
-    "colorscripts": {
-      "inputs": {
-        "flake-parts": [
-          "my-nvim",
-          "flake-parts"
-        ],
-        "nixpkgs": [
-          "my-nvim",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1753956934,
-        "narHash": "sha256-JE3GQJzcJg1/il6eYDoHGkIThhWNmCv0NqFCTz80WVI=",
-        "owner": "Sarguru02",
-        "repo": "pokemon-colorscripts-nix",
-        "rev": "f4b6cd732c98955db64dfc47c264fe8f2a0c4187",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Sarguru02",
-        "repo": "pokemon-colorscripts-nix",
-        "type": "github"
-      }
-    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": "nixpkgs-lib"
@@ -144,7 +119,6 @@
     },
     "my-nvim": {
       "inputs": {
-        "colorscripts": "colorscripts",
         "flake-parts": [
           "flake-parts"
         ],
@@ -154,11 +128,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1767816010,
-        "narHash": "sha256-NiDfe2XNliDeIngL2O6ReFAVCTS5cs/Ow9+tZuiDUIA=",
+        "lastModified": 1777979264,
+        "narHash": "sha256-PQhvU9YmdK56yT1JQ9+KgXigl0YcoTfCHtkXXbHeTmM=",
         "owner": "Sarguru02",
         "repo": "nixinit.lua",
-        "rev": "7f40c70c1d1277e1bd7a5c31c3822a2f9b1ab29c",
+        "rev": "a8869cb6ecfc98615bf309e2c9fdc051b6b48ca9",
         "type": "github"
       },
       "original": {
@@ -366,11 +340,11 @@
         "zig2nix": "zig2nix"
       },
       "locked": {
-        "lastModified": 1777398920,
-        "narHash": "sha256-ZDGluw5p/S2OrIbnU6+z+KFpk22msSUOerMiOs9mtRc=",
+        "lastModified": 1778677849,
+        "narHash": "sha256-1g8QTevSITMUV5a1EZViKHwdDbRlUnOEt/j4wH4b8oM=",
         "owner": "Sarguru02",
         "repo": "zmx",
-        "rev": "de139c98784ed05942ad5608946743d6f72cc505",
+        "rev": "d1a77f79331a46a9af8e435f7f9555370d2376d2",
         "type": "github"
       },
       "original": {

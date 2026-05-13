@@ -38,7 +38,7 @@
 
   function prompt_my_zmx_session() {
     if [[ -n $ZMX_SESSION ]]; then
-      p10k segment -b '%k' -f '%f' -t "[$ZMX_SESSION]"
+      p10k segment -b '%k' -f 5 -t "[$ZMX_SESSION]"
     fi
   }
 

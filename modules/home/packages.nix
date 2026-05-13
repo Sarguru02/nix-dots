@@ -5,6 +5,7 @@ let
 in
 {
   # Search for packages here: https://search.nixos.org/packages
+  imports = [ flake.inputs.zmx.homeManagerModules.default ];
   home.packages = with pkgs; [
     omnix
 
@@ -36,8 +37,6 @@ in
     just
     flake.self.packages.${system}.jclaude
 
-    flake.inputs.zmx.packages.${system}.default
-
     signal-desktop
     wezterm
   ]
@@ -50,12 +49,16 @@ in
     bat.enable = true;
     fzf.enable = true;
     jq.enable = true;
-    # Install btop https://github.com/aristocratos/btop
     btop.enable = true;
     # Tmate terminal sharing.
     tmate = {
       enable = true;
       #host = ""; #In case you wish to use a server other than tmate.io 
+    };
+    zmx = {
+      enable = true;
+      enableZshCompletions = true;
+      package = flake.inputs.zmx.packages.${pkgs.system}.default;
     };
   };
 }
