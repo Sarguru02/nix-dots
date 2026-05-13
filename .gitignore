@@ -4,3 +4,6 @@ result
 # APM dependencies
 apm_modules/
 /.worktrees
+apm_modules
+/apm.yml
+/apm.lock.yaml

@@ -38,7 +38,9 @@
         export PATH=$PATH:''${CARGO_HOME:-~/.cargo}/bin
         export PATH=$PATH:''${RUSTUP_HOME:-~/.rustup}/toolchains/$RUSTC_VERSION-x86_64-unknown-linux-gnu/bin/
         export PATH=$PATH:$HOME/.npm-global/bin
-        export EDITOR=nvim
+        export TERM="xterm-256color"
+        export LC_ALL=C.UTF-8
+        export EDITOR="nvim"
       '';
       profileExtra = ''
         if [ -z "$SSH_AUTH_SOCK" ]; then
