@@ -1,5 +1,8 @@
-{pkgs, ... }:
+{pkgs, config, ... }:
 {
+  home.sessionVariables = {
+    ZMX_DIR = "${config.xdg.configHome}/zmx";
+  };
   home.shellAliases = {
     x = "exit";
     c = "clear";
