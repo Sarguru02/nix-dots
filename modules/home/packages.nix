@@ -31,6 +31,7 @@ in
     zsh-powerlevel10k
     tmux
     flake.self.packages.${system}.vopener
+    flake.self.packages.${system}.zmx-select
     ledger
     flake.inputs.my-nvim.packages.${system}.default
     delta
@@ -58,7 +59,7 @@ in
     zmx = {
       enable = true;
       enableZshCompletions = true;
-      package = flake.inputs.zmx.packages.${pkgs.system}.default;
+      package = flake.self.packages.${system}.zmx;
     };
   };
 }
