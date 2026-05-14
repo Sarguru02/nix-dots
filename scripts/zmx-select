@@ -1,4 +1,4 @@
-display=$(zmx list 2>/dev/null | while IFS=$'\t' read -r fields; do
+lines=$(zmx list 2>/dev/null | while IFS=$'\t' read -r fields; do
 	name="" pid="" clients="" created="" dir=""
 	for field in $fields; do
 		case "$field" in
@@ -9,22 +9,24 @@ display=$(zmx list 2>/dev/null | while IFS=$'\t' read -r fields; do
 			start_dir=*) dir="${field#start_dir=}" ;;
 		esac
 	done
-	printf "%-20s  pid:%-8s  clients:%-2s  %s  %s\n" "$name" "$pid" "$clients" "$created" "$dir"
+	printf "%s\t%-20s  pid:%-8s  clients:%-2s  %s  %s\n" "$name" "$name" "$pid" "$clients" "$created" "$dir"
 done)
 
-if [[ -z "$display" ]]; then
+if [[ -z "$lines" ]]; then
 	echo "No zmx sessions found" >&2
 	exit 1
 fi
 
-output=$(echo "$display" | fzf \
+output=$(echo "$lines" | fzf \
+	--delimiter '\t' \
+	--with-nth 2.. \
 	--print-query \
 	--expect=ctrl-n \
 	--height=80% \
 	--reverse \
 	--prompt="zmx> " \
 	--header="Enter: select | Ctrl-N: create new" \
-	--preview='zmx history $(echo {1} | sed "s/ *$//") 2>/dev/null | tail -50' \
+	--preview='zmx history {1} 2>/dev/null | tail -50' \
 	--preview-window=right:60%:follow \
 )
 rc=$?
@@ -36,7 +38,7 @@ selected=$(echo "$output" | sed -n '3p')
 if [[ "$key" == "ctrl-n" && -n "$query" ]]; then
 	session_name="$query"
 elif [[ $rc -eq 0 && -n "$selected" ]]; then
-	session_name=$(echo "$selected" | awk '{print $1}')
+	session_name=$(echo "$selected" | cut -f1)
 elif [[ -n "$query" ]]; then
 	session_name="$query"
 else
