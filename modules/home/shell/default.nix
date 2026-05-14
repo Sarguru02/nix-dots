@@ -10,6 +10,7 @@
     cl = "clear && ls";
     rvo = ''ssh -t sargurunathan@tcpu "zsh -i -c \"vo; zsh\""'';
     vo = "vopener";
+    zs = "zmx-select";
     ls = "eza";
     ll = "eza -l";
     cd = "z";

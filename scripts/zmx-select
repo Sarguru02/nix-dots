@@ -1,0 +1,46 @@
+display=$(zmx list 2>/dev/null | while IFS=$'\t' read -r fields; do
+	name="" pid="" clients="" created="" dir=""
+	for field in $fields; do
+		case "$field" in
+			name=*) name="${field#name=}" ;;
+			pid=*) pid="${field#pid=}" ;;
+			clients=*) clients="${field#clients=}" ;;
+			created=*) created=$(date -d @"${field#created=}" '+%Y-%m-%d %H:%M' 2>/dev/null || echo "${field#created=}") ;;
+			start_dir=*) dir="${field#start_dir=}" ;;
+		esac
+	done
+	printf "%-20s  pid:%-8s  clients:%-2s  %s  %s\n" "$name" "$pid" "$clients" "$created" "$dir"
+done)
+
+if [[ -z "$display" ]]; then
+	echo "No zmx sessions found" >&2
+	exit 1
+fi
+
+output=$(echo "$display" | fzf \
+	--print-query \
+	--expect=ctrl-n \
+	--height=80% \
+	--reverse \
+	--prompt="zmx> " \
+	--header="Enter: select | Ctrl-N: create new" \
+	--preview='zmx history $(echo {1} | sed "s/ *$//") 2>/dev/null | tail -50' \
+	--preview-window=right:60%:follow \
+)
+rc=$?
+
+query=$(echo "$output" | sed -n '1p')
+key=$(echo "$output" | sed -n '2p')
+selected=$(echo "$output" | sed -n '3p')
+
+if [[ "$key" == "ctrl-n" && -n "$query" ]]; then
+	session_name="$query"
+elif [[ $rc -eq 0 && -n "$selected" ]]; then
+	session_name=$(echo "$selected" | awk '{print $1}')
+elif [[ -n "$query" ]]; then
+	session_name="$query"
+else
+	exit 130
+fi
+
+zmx attach "$session_name"
